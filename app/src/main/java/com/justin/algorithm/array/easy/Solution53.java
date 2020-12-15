@@ -1,4 +1,4 @@
-package com.justin.algorithm;
+package com.justin.algorithm.array.easy;
 /*
  * created by Justin on 2020/12/14
  * email: wcw1992yu@163.com
