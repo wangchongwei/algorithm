@@ -5,6 +5,9 @@ package com.justin.algorithm.array.easy;
  * github: https://github.com/wangchongwei
  */
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * 1128. 等价多米诺骨牌对的数量
@@ -36,14 +39,42 @@ package com.justin.algorithm.array.easy;
 class Solution1128 {
 
     public static void main(String[] args) {
-
-
+        int[][] a = new int[][]{{1,2}, {2,1}, {1, 1}, {2,1}, {5, 6}, {3, 4}, {4, 1}, { 4,3 }, {6, 5 }, {1, 1}};
+        System.out.println("result = " + numEquivDominoPairs(a));
     }
 
     public static int numEquivDominoPairs(int[][] dominoes) {
         if(dominoes.length == 1) return 0;
+        HashMap<String, Integer>map = new HashMap<>();
+        for(int i = 0; i < dominoes.length; i ++) {
+            int left = dominoes[i][0];
+            int right = dominoes[i][1];
+            String str = Math.max(left, right) + "" + Math.min(left, right);
+            if(map.containsKey(str)) {
+                map.put(str, map.get(str) + 1);
+            } else {
+                map.put(str, 1);
+            }
+        }
+        int count = 0;
+        Solution1128.map.put(2,1);
+        Solution1128.map.put(3,3);
+        for(Map.Entry entry : map.entrySet()) {
+            if((int)entry.getValue() > 1) {
+                count = count + getCount((int)entry.getValue());
+            }
+        }
+        return count;
+    }
 
-        return 0;
+    static HashMap<Integer, Integer>map = new HashMap<>();
+    public static int getCount(int i) {
+        if(i == 2) return 1;
+        if(i == 3) return 3;
+        if(map.containsKey(i)) return map.get(i);
+        int result = getCount(i - 1) + i - 1;
+        map.put(i, result);
+        return result;
     }
 
 }
