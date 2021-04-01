@@ -5,6 +5,8 @@ package com.justin.algorithm.array.easy;
  * github: https://github.com/wangchongwei
  */
 
+import java.util.HashMap;
+
 /**
  * 1013. 将数组分成和相等的三个部分
  * 给你一个整数数组 A，只有可以将其划分为三个和相等的非空部分时才返回 true，否则返回 false。
@@ -40,13 +42,20 @@ class Solution1013 {
 
 
     public static void main(String[] args) {
-
+        int[] a = new int[]{0,-1, 1, 0, -1, 1,0};
+        System.out.println("result = " + canThreePartsEqualSum(a));
     }
 
     public static boolean canThreePartsEqualSum(int[] arr) {
 
-        int left = 0;
-        int right = arr.length - 1;
+        int[] sumArr = new int[arr.length];
+        sumArr[0] = arr[0];
+        for (int i = 1; i < arr.length; i ++) {
+            sumArr[i] = sumArr[i - 1] + arr[i];
+        }
+        if(sumArr[arr.length - 1] % 3 != 0) return false;
+
+
 
 
         return false;
