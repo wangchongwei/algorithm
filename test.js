@@ -1,1 +1,1 @@
-console.log(51 % 2);
+console.log(0 ^ 4 ^ 1 ^ 2 ^ 1 ^ 2);
