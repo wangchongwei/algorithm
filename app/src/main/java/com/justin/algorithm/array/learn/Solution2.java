@@ -1,4 +1,4 @@
-package com.justin.algorithm.array.learn;
+:package com.justin.algorithm.array.learn;
 /*
  * created by Justin on 2021/4/22
  * email: wcw1992yu@163.com
