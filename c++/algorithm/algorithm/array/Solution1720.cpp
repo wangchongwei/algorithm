@@ -61,7 +61,7 @@ public:
     }
 };
 
-int main() {
+int main1720() {
     cout << "Hello" << endl;
     
     vector<int> encoded;
