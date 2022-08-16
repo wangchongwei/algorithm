@@ -57,8 +57,26 @@ public class Learn1 {
 //        middleSort2(node1);
 
 //        sort(node1);
-        sort2(node1);
+//        sort2(node1);
+        //      6
+        //  3       10
+        //1  4     8  12
+        TreeNode no1 = new TreeNode(6);
+        TreeNode no2 = new TreeNode(3);
+        TreeNode no3 = new TreeNode(10);
+        TreeNode no4 = new TreeNode(1);
+        TreeNode no5 = new TreeNode(4);
+        TreeNode no6 = new TreeNode(8);
+        TreeNode no7 = new TreeNode(12);
+
+        no1.left = no2; no1.right = no3;
+        no2.left = no4; no2.right = no5;
+        no3.left = no6; no3.right = no7;
+
+        System.out.println("是否是搜索二叉树" + isSearchTree(no1));
+        System.out.println("是否是完全二叉树" + isCompleteBinaryTree(node1));
     }
+
 
 
 
@@ -208,6 +226,65 @@ public class Learn1 {
         max = Math.max(max, currentLevelCount);
         System.out.println("max:" + max);
         return max;
+    }
+
+    /**
+     * 判断二叉树是不是二叉搜索树
+     * @param node
+     * @return
+     */
+    public static boolean isSearchTree(TreeNode node) {
+        if(node == null) return true;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode currentNode = node;
+        int lastValue = Integer.MIN_VALUE;
+        while (!stack.empty() || currentNode != null) {
+            if(currentNode != null) {
+                stack.add(currentNode);
+                currentNode = currentNode.left;
+            } else {
+                TreeNode prev = stack.pop();
+                if(prev.val < lastValue) {
+                    return false;
+                }
+                lastValue = prev.val;
+                System.out.println("nodeValue: " + lastValue);
+                currentNode = prev.right;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 判断是否是完全二叉树
+     * @return
+     */
+    public static boolean isCompleteBinaryTree(TreeNode node) {
+        if(node == null) return true;
+        // 双向链表做队列
+        Queue<TreeNode>queue = new LinkedList<>();
+        queue.add(node);
+        // 判断是否遇到第一个有左无右的节点
+        boolean meetFirst = false;
+        while (!queue.isEmpty()) {
+            TreeNode currentNode = queue.poll();
+            System.out.println("nodeValue: " + currentNode.val);
+            // 有右无左则肯定不是完全二叉树
+            if((currentNode.left == null && currentNode.right != null) ||
+                    (meetFirst && (currentNode.left != null || currentNode.right != null))) return false;
+
+            if(currentNode.left != null) {
+                if(meetFirst) return false;
+                if(currentNode.right == null) meetFirst = true;
+                queue.add(currentNode.left);
+            }
+            if(currentNode.right != null) {
+                if (meetFirst || currentNode.left == null) return false;
+                queue.add(currentNode.right);
+            }
+            if(currentNode.right == null || currentNode.left == null) meetFirst = true;
+        }
+        return true;
     }
 
 
