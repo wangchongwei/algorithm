@@ -11,6 +11,7 @@ import java.util.HashSet;
  * 1、判断一棵树是否是平衡二叉树
  * 2、判断一个二叉树是否是满二叉树
  * 3、获取二叉树中两个节点的公共最小节点
+ * 4、二叉树的序列化、反序列化
  */
 public class Learn2 {
 
@@ -55,8 +56,57 @@ public class Learn2 {
         System.out.println("判断是否是平衡二叉树 =>" + isBST(node1));
 
         TreeNode no1 = node8;
-        TreeNode no2 = node13;
+        TreeNode no2 = node9;
         System.out.println("节点一:" + no1.val + "与节点二:" + no2.val + "的最近公共父节点:" + getParentNode(node1, no1, no2) == null ? "null" : getParentNode(node1, no1, no2).val);
+        System.out.println("节点一:" + no1.val + "与节点二:" + no2.val + "的最近公共父节点:" + getParentNode2(node1, no1, no2) == null ? "null" : getParentNode2(node1, no1, no2).val);
+
+        System.out.println("序列化结果:" + toString2(node1));
+    }
+
+    /**
+     * 将二叉树序列化
+     * @param node
+     * @return
+     */
+    private static String toString2(TreeNode node) {
+        if(node == null) return "#_";
+        String result = toString2(node.left);
+        result = result + node.val + "_";
+        String rightResult = toString2(node.right);
+        return result + rightResult;
+    }
+
+    /**
+     * 将二叉树序列化的字符串生成完整二叉树
+     * @param str
+     * @return
+     */
+    private static TreeNode toTreeNode(String str) {
+        TreeNode node = new TreeNode(1);
+        String[] arr = str.split("_");
+
+
+        return node;
+    }
+
+    /**
+     * 通过递归查找最近公共父节点
+     * @param heed
+     * @param node1
+     * @param node2
+     * @return
+     */
+    private static TreeNode getParentNode2(TreeNode heed, TreeNode node1, TreeNode node2) {
+        if(heed == null || heed == node1 || heed == node2) return heed;
+        // 在左树中找node1、node2
+        TreeNode leftNode = getParentNode2(heed.left, node1, node2);
+        // 在右树中找node1、node2
+        TreeNode rightNode = getParentNode2(heed.right, node1, node2);
+        if(leftNode != null && rightNode != null) {
+          // 当左右节点都不为空，说明node1、node2分别位于当前节点的左、右子树中
+            return heed;
+        }
+        return leftNode == null ? rightNode : leftNode;
     }
 
     /**
@@ -164,7 +214,7 @@ public class Learn2 {
     }
 
 
-    public static class TreeNode {
+    private static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
