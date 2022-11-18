@@ -21,9 +21,9 @@ import java.util.Stack;
  *
  * 3、拓扑图算法
  *
- * 4、K算法
+ * 4、Kruskal算法
  *
- * 5、P算法
+ * 5、Prim 算法
  *
  * 6、并列集算法
  */
